@@ -1,6 +1,7 @@
 import { app, BrowserWindow, screen } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
+var open = require("open");
 
 let win, serve;
 const args = process.argv.slice(1);
@@ -15,9 +16,17 @@ function createWindow() {
   win = new BrowserWindow({
     x: 0,
     y: 0,
-    width: size.width,
-    height: size.height
+    width: 1000,
+    height: 600,
+    frame: false,
   });
+
+  win.webContents.on('new-window', function (event, url) {
+    event.preventDefault();
+    open(url);
+  });
+
+  win.setMenu(null)
 
   if (serve) {
     require('electron-reload')(__dirname, {

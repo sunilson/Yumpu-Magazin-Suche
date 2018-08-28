@@ -1,7 +1,37 @@
-<a [routerLink]="['/magazine-selection']">
-  link to user component
-</a>
-<a [routerLink]="['/']">
-  link to user component
-</a>
-<router-outlet></router-outlet>
+<mat-drawer-container style="height: 100%">
+  <mat-drawer #drawer style="width: 300px">
+    <mat-toolbar color="primary" class="toolbar" style="-webkit-app-region: drag">
+      <mat-toolbar-row>
+        <button mat-icon-button class="toolbar-icon" style="-webkit-app-region: no-drag" (click)="drawer.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span>Menu</span>
+      </mat-toolbar-row>
+    </mat-toolbar>
+  </mat-drawer>
+  <mat-toolbar color="primary" class="toolbar" style="-webkit-app-region: drag">
+    <mat-toolbar-row>
+      <button *ngIf="router.url === '/'" mat-icon-button class="toolbar-icon" style="-webkit-app-region: no-drag" (click)="drawer.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <button *ngIf="router.url !== '/'" mat-icon-button class="toolbar-icon" style="-webkit-app-region: no-drag" (click)="location.back()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <span>Custom Toolbar</span>
+      <span class="spacer"></span>
+      <button (click)="electronService.remote.BrowserWindow.getFocusedWindow().minimize()" mat-icon-button class="toolbar-icon"
+        style="-webkit-app-region: no-drag">
+        <mat-icon>minimize</mat-icon>
+      </button>
+      <button (click)="(!electronService.remote.BrowserWindow.getFocusedWindow().isMaximized()) ? electronService.remote.BrowserWindow.getFocusedWindow().maximize() : electronService.remote.BrowserWindow.getFocusedWindow().unmaximize()"
+        mat-icon-button class="toolbar-icon" style="-webkit-app-region: no-drag">
+        <mat-icon *ngIf="electronService.remote.BrowserWindow.getFocusedWindow() && electronService.remote.BrowserWindow.getFocusedWindow().isMaximized()">filter_none</mat-icon>
+        <mat-icon *ngIf="electronService.remote.BrowserWindow.getFocusedWindow() && !electronService.remote.BrowserWindow.getFocusedWindow().isMaximized()">crop_square</mat-icon>
+      </button>
+      <button (click)="electronService.remote.BrowserWindow.getFocusedWindow().close()" mat-icon-button class="toolbar-icon" style="-webkit-app-region: no-drag">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <router-outlet></router-outlet>
+</mat-drawer-container>

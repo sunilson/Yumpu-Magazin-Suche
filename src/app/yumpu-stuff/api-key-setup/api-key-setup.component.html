@@ -1,0 +1,9 @@
+<div>
+  <mat-form-field style="width: 100%">
+    <input [(ngModel)]="key" matInput placeholder="API Key eingeben">
+  </mat-form-field>
+  <mat-dialog-actions>
+    <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+    <button style="margin-left:auto" mat-raised-button color="primary" (click)="storeKey()">Done</button>
+  </mat-dialog-actions>
+</div>

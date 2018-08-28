@@ -1,1 +1,0 @@
-# yumpu-magazine-scraper

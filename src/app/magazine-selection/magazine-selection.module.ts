@@ -1,9 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatButtonModule, MatFormField, MatSelect, MatOption, MatFormFieldModule, MatOptionModule, MatSelectModule, MatInputModule } from '@angular/material';
+import { MatButtonModule, MatFormField, MatSelect, MatOption, MatFormFieldModule, MatOptionModule, MatSelectModule, MatInputModule, MatIconModule, MatProgressSpinnerModule, MatCardModule } from '@angular/material';
 import { MagazineSelectionRoutingModule } from './magazine-selection-routing.module';
 import { SelectionPageComponent } from './selection-page/selection-page.component';
 import { SelectionSearchFormComponent } from './selection-search-form/selection-search-form.component';
+import { YumpuStuffModule } from '../yumpu-stuff/yumpu-stuff.module';
+import { FormsModule } from '@angular/forms';
+import { UtilModule } from '../util/util.module';
+import { MagazineExportComponent } from './magazine-export/magazine-export.component';
 
 @NgModule({
   imports: [
@@ -13,9 +17,14 @@ import { SelectionSearchFormComponent } from './selection-search-form/selection-
     MatFormFieldModule,
     MatOptionModule,
     MatSelectModule,
-    MatInputModule
+    MatInputModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    MatCardModule,
+    FormsModule,
+    UtilModule
   ],
-  declarations: [SelectionPageComponent, SelectionSearchFormComponent],
+  declarations: [SelectionPageComponent, SelectionSearchFormComponent, MagazineExportComponent],
   exports: [
 
   ]

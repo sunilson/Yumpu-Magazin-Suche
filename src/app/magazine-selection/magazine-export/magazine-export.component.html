@@ -1,0 +1,18 @@
+<div class="content-container">
+  <div class="row">
+    <div class="col-xs-12 col-md-6" style="padding: 15px">
+      <h2>URLs</h2>
+      <div class="text-container">
+        <div *ngFor="let res of currentSelection">
+          <a [href]="res.url" class="magazineUrl" target="_blank">{{res.url}}</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-md-6" style="padding: 15px">
+      <h2>IDs</h2>
+      <div class="text-container">
+        <div *ngFor="let res of currentSelection">{{res.id}}</div>
+      </div>
+    </div>
+  </div>
+</div>

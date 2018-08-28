@@ -18,3 +18,29 @@ body {
 }
 
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+.center {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+}
+
+/*
+
+.toolbar {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+*/
+
+@import "./variables.scss";
+.content-container {
+  width: 100%;
+  height: $content-height; //border-bottom-left-radius: 10px;
+  position: absolute;
+  top: 64px;
+  overflow-x: hidden;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  overflow-y: auto; //border-bottom-right-radius: 10px;
+}

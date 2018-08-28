@@ -15,12 +15,17 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { ElectronService } from './providers/electron.service';
 
-import { WebviewDirective } from './directives/webview.directive';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { MagazineSelectionModule } from './magazine-selection/magazine-selection.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StorageModule } from './storage/storage.module';
+import { YumpuStuffModule } from './yumpu-stuff/yumpu-stuff.module';
+import { Language } from './yumpu-stuff/models';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule, MatButtonModule, MatSidenavModule } from '@angular/material';
+import { ImageSelectDirective } from './util/image-select.directive';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -31,13 +36,19 @@ export function HttpLoaderFactory(http: HttpClient) {
   declarations: [
     AppComponent,
     HomeComponent,
-    WebviewDirective
+    ImageSelectDirective
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
+    StorageModule,
+    YumpuStuffModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSidenavModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

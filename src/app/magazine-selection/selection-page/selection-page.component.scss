@@ -1,0 +1,44 @@
+.row {
+  margin: 0 !important
+}
+
+.mat-card-header-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+img {
+  transition: width 300ms, height 300ms;
+}
+
+.marker {
+  transition: all 300ms;
+  cursor: pointer;
+}
+
+.bottom-bar {
+  transition: all 300ms;
+}
+
+button {
+  transition: all 300ms;
+}
+
+.selected-img {
+  width: 80% !important;
+  height: 80% !important;
+}
+
+.selected-marker {
+  transform: scale(1) !important;
+  opacity: 1 !important;
+}
+
+.active-fab {
+  transform: translateY(-50px)
+}
+
+.active-bar {
+  transform: translateY(0px) !important
+}

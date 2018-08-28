@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SelectionSearchFormComponent } from './selection-search-form/selection-search-form.component';
 import { SelectionPageComponent } from './selection-page/selection-page.component';
+import { FormsModule } from '@angular/forms';
+import { MagazineExportComponent } from './magazine-export/magazine-export.component';
 
 const routes: Routes = [
   {
@@ -11,6 +13,10 @@ const routes: Routes = [
   {
     path: 'selection',
     component: SelectionPageComponent
+  },
+  {
+    path: 'export',
+    component: MagazineExportComponent
   }
 ];
 

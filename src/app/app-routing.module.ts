@@ -5,10 +5,6 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
     {
         path: '',
-        component: HomeComponent
-    },
-    {
-        path: 'magazine-selection',
         loadChildren: 'app/magazine-selection/magazine-selection.module#MagazineSelectionModule'
     }
 ];

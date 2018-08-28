@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { GoogleSearchService } from '../../google-search/google-search.service';
+import { Language, SearchOptions } from '../../yumpu-stuff/models';
+import { YumpuApiService } from '../../yumpu-stuff/providers/yumpu-api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-selection-search-form',
@@ -7,9 +11,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SelectionSearchFormComponent implements OnInit {
 
-  constructor() { }
+  searchQuery: string = ""
+  selectedLanguage: Language = null
+  loading: boolean = false
 
-  ngOnInit() {
+  constructor(public yumpuService: YumpuApiService, private router: Router) {
+
   }
 
+  startSearch() {
+    this.loading = true
+    this.yumpuService.search(new SearchOptions(this.searchQuery, this.selectedLanguage)).subscribe((res) => {
+      this.router.navigate(['selection'])
+    }, (error) => {
+      this.loading = false
+    })
+  }
+
+  ngOnInit() {
+
+  }
 }

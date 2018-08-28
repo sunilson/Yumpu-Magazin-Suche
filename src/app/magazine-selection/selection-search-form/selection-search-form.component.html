@@ -1,22 +1,25 @@
-<p>
-  selection-search-form works!
-  <button mat-raised-button>Basic</button>
-
-
-</p>
-
-<div>
-  <mat-form-field>
-    <input matInput placeholder="Input">
-  </mat-form-field>
-
-  <mat-form-field>
-    <textarea matInput placeholder="Textarea"></textarea>
-  </mat-form-field>
-
-  <mat-form-field>
-    <mat-select placeholder="Select">
-      <mat-option value="option">Option</mat-option>
-    </mat-select>
-  </mat-form-field>
+<div class="content-container center">
+  <div class="form-content" *ngIf="!loading">
+    <h1>Magazine Search</h1>
+    <mat-form-field style="width: 100%">
+      <input [(ngModel)]="searchQuery" matInput placeholder="Suchbegriff" (keyup.enter)="startSearch()">
+    </mat-form-field>
+    <mat-form-field style="width: 100%">
+      <mat-select placeholder="Sprache" [(ngModel)]="selectedLanguage">
+        <mat-option *ngFor="let language of yumpuService.languages" [value]="language">{{language.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="startSearch()">
+      Starten
+      <mat-icon style="padding-left: 10px">search</mat-icon>
+    </button>
+    <div>
+      <button mat-button>
+        Advanced options
+      </button>
+    </div>
+  </div>
+  <div *ngIf="loading">
+    <mat-spinner></mat-spinner>
+  </div>
 </div>

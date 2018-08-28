@@ -1,9 +1,9 @@
 import { Directive } from '@angular/core';
 
 @Directive({
-  selector: 'webview'
+  selector: '[appImageSelect]'
 })
-export class WebviewDirective {
+export class ImageSelectDirective {
 
   constructor() { }
 
