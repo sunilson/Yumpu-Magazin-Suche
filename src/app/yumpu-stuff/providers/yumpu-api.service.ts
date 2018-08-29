@@ -90,7 +90,6 @@ export class YumpuApiService {
           const result = []
           if (val && val["documents"] && val["documents"].length > 0) {
             val["documents"].forEach(document => {
-              console.log(document)
               result.push(new MagazineSearchResult(document["id"].toString(), document["title"], document["url"], document["image"]["medium"], (document["tags"]) ? document["tags"] : []))
             });
             if (offset != 0) this.currentSearchResult = this.currentSearchResult.concat(result)

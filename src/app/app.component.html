@@ -11,13 +11,17 @@
   </mat-drawer>
   <mat-toolbar color="primary" class="toolbar" style="-webkit-app-region: drag">
     <mat-toolbar-row>
-      <button *ngIf="router.url === '/'" mat-icon-button class="toolbar-icon" style="-webkit-app-region: no-drag" (click)="drawer.toggle()">
+      <button *ngIf="router.url === '/'" mat-icon-button class="toolbar-icon" style="-webkit-app-region: no-drag"
+        (click)="drawer.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
-      <button *ngIf="router.url !== '/'" mat-icon-button class="toolbar-icon" style="-webkit-app-region: no-drag" (click)="location.back()">
+      <button *ngIf="router.url !== '/'" mat-icon-button class="toolbar-icon" style="-webkit-app-region: no-drag"
+        (click)="location.back()">
         <mat-icon>arrow_back</mat-icon>
       </button>
-      <span>Custom Toolbar</span>
+      <span *ngIf="router.url == '/'">Yumpu Magazin Suche</span>
+      <span *ngIf="router.url == '/selection'">Magazin Auswahl</span>
+      <span *ngIf="router.url == '/export'">Magazin Export</span>
       <span class="spacer"></span>
       <button (click)="electronService.remote.BrowserWindow.getFocusedWindow().minimize()" mat-icon-button class="toolbar-icon"
         style="-webkit-app-region: no-drag">
@@ -28,7 +32,8 @@
         <mat-icon *ngIf="electronService.remote.BrowserWindow.getFocusedWindow() && electronService.remote.BrowserWindow.getFocusedWindow().isMaximized()">filter_none</mat-icon>
         <mat-icon *ngIf="electronService.remote.BrowserWindow.getFocusedWindow() && !electronService.remote.BrowserWindow.getFocusedWindow().isMaximized()">crop_square</mat-icon>
       </button>
-      <button (click)="electronService.remote.BrowserWindow.getFocusedWindow().close()" mat-icon-button class="toolbar-icon" style="-webkit-app-region: no-drag">
+      <button (click)="electronService.remote.BrowserWindow.getFocusedWindow().close()" mat-icon-button class="toolbar-icon"
+        style="-webkit-app-region: no-drag">
         <mat-icon>close</mat-icon>
       </button>
     </mat-toolbar-row>

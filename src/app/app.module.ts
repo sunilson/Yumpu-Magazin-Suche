@@ -26,6 +26,7 @@ import { Language } from './yumpu-stuff/models';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule, MatButtonModule, MatSidenavModule } from '@angular/material';
 import { ImageSelectDirective } from './util/image-select.directive';
+import { UtilModule } from './util/util.module';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -49,6 +50,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatButtonModule,
     MatIconModule,
     MatSidenavModule,
+    UtilModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

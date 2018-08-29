@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatButtonModule, MatFormField, MatSelect, MatOption, MatFormFieldModule, MatOptionModule, MatSelectModule, MatInputModule, MatIconModule, MatProgressSpinnerModule, MatCardModule } from '@angular/material';
+import { MatButtonModule, MatFormField, MatSelect, MatOption, MatFormFieldModule, MatOptionModule, MatSelectModule, MatInputModule, MatIconModule, MatProgressSpinnerModule, MatCardModule, MatMenuModule } from '@angular/material';
 import { MagazineSelectionRoutingModule } from './magazine-selection-routing.module';
 import { SelectionPageComponent } from './selection-page/selection-page.component';
 import { SelectionSearchFormComponent } from './selection-search-form/selection-search-form.component';
@@ -21,6 +21,7 @@ import { MagazineExportComponent } from './magazine-export/magazine-export.compo
     MatIconModule,
     MatProgressSpinnerModule,
     MatCardModule,
+    MatMenuModule,
     FormsModule,
     UtilModule
   ],

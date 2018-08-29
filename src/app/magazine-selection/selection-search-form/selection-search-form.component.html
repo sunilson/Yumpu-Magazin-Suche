@@ -3,7 +3,14 @@
     <h1>Magazine Search</h1>
     <mat-form-field style="width: 100%">
       <input [(ngModel)]="searchQuery" matInput placeholder="Suchbegriff" (keyup.enter)="startSearch()">
+      <button *ngIf="!translating" mat-icon-button matSuffix [matMenuTriggerFor]="menu">
+        <mat-icon>g_translate</mat-icon>
+      </button>
+      <mat-spinner *ngIf="translating" diameter="20" matSuffix></mat-spinner>
     </mat-form-field>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item *ngFor="let language of yumpuService.languages" (click)="translate(language)">{{language.name}}</button>
+    </mat-menu>
     <mat-form-field style="width: 100%">
       <mat-select placeholder="Sprache" [(ngModel)]="selectedLanguage">
         <mat-option *ngFor="let language of yumpuService.languages" [value]="language">{{language.name}}</mat-option>
