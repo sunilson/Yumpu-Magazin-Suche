@@ -39,14 +39,16 @@ export class YumpuApiService {
 
   public changeApiKey(cb?: () => any) {
     const dialogRef = this.dialog.open(ApiKeySetupComponent, {
-      width: '250px',
+      width: '350px',
       data: { title: "Hallo123" },
       disableClose: true
     })
 
     dialogRef.afterClosed().subscribe(result => {
-      this.apiKey = result
-      if (cb) cb()
+      if (result) {
+        this.apiKey = result
+        if (cb) cb()
+      }
     });
   }
 
@@ -78,19 +80,19 @@ export class YumpuApiService {
 
   public search(searchOptions: SearchOptions): Observable<MagazineSearchResult[]> {
     this.currentSearchSettings = searchOptions
-    const { query, language, limit, startDate, offset, order } = searchOptions
+    const { query, language, limit, startDate, offset, order, minViews, maxViews } = searchOptions
     const httpOptions = {
       headers: this.prepareHeader()
     };
 
     return this.httpClient
-      .get(`https://search.yumpu.com/2.0/search.json?q=${query}&limit=${limit}${(language) ? "&language=" + language.short : ""}${(startDate) ? "&create_date=" + startDate.format("YYYY-MM-DD") + "-" + moment().format("YYYY-MM-DD") : ""}&offset=${offset}&sort=${order.valueOf()}`, httpOptions)
+      .get(`https://search.yumpu.com/2.0/search.json?q=${query}&limit=${limit}${(language) ? "&language=" + language.short : ""}${(startDate) ? "&create_date=" + startDate.format("YYYY-MM-DD") + "-" + moment().format("YYYY-MM-DD") : ""}&offset=${offset}&sort=${order.valueOf()}&views=${minViews}-${maxViews}`, httpOptions)
       .pipe(
         map(val => {
           const result = []
           if (val && val["documents"] && val["documents"].length > 0) {
             val["documents"].forEach(document => {
-              result.push(new MagazineSearchResult(document["id"].toString(), document["title"], document["url"], document["image"]["medium"], (document["tags"]) ? document["tags"] : []))
+              result.push(new MagazineSearchResult(document["id"].toString(), document["title"], document["url"], document["image"]["medium"], (document["tags"]) ? document["tags"] : [], (document["embed_code"]) ? document["embed_code"] : ""))
             });
             if (offset != 0) this.currentSearchResult = this.currentSearchResult.concat(result)
             else this.currentSearchResult = result

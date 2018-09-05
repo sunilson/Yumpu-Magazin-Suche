@@ -1,0 +1,27 @@
+<div>
+  <h2 mat-dialog-title class="unselectable">Erweiterte Suche</h2>
+  <mat-form-field class="full-width">
+    <mat-select [(ngModel)]="currentSearchOptions.order" placeholder="Sortierung">
+      <mat-option *ngFor="let option of filterOptions" [value]="option.value">{{option.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <input [(ngModel)]="currentSearchOptions.minViews" matInput type="number" placeholder="Min. Views">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <input [(ngModel)]="currentSearchOptions.maxViews" matInput type="number" placeholder="Max. Views">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <input matInput [matDatepicker]="picker" placeholder="Min. Erstellungs-Datum wählen" [(ngModel)]="currentSearchOptions.startDate">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="true">
+      Abbrechen
+    </button>
+    <button mat-button (click)="save()">
+      Speichern
+    </button>
+  </mat-dialog-actions>
+</div>

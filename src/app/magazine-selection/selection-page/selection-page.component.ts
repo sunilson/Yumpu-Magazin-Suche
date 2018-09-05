@@ -4,7 +4,9 @@ import { Router } from '@angular/router';
 import { trigger, style, animate, transition, state, keyframes } from '@angular/animations';
 import { FormatDatePipe } from '../../util/format-date.pipe';
 import { LocalStorageRepositoryService } from '../../storage/local-storage-repository.service';
-import { MagazineSearchResult } from '../../yumpu-stuff/models';
+import { MagazineSearchResult, Magazine } from '../../yumpu-stuff/models';
+import { HelperFunctionsService } from '../../util/helper-functions.service';
+import { ElectronService } from '../../providers/electron.service';
 
 @Component({
   selector: 'app-selection-page',
@@ -40,21 +42,31 @@ import { MagazineSearchResult } from '../../yumpu-stuff/models';
 export class SelectionPageComponent implements OnInit, OnDestroy {
 
   selectedMagazines: {} = {}
+  selectedMagazinesCount: number = 0
   loading: boolean = false
   doneClicked: boolean = false
 
-  constructor(public yumpuService: YumpuApiService, public router: Router, private zones: NgZone, public storage: LocalStorageRepositoryService) {
+  constructor(
+    public yumpuService: YumpuApiService,
+    public router: Router,
+    private zones: NgZone,
+    public storage: LocalStorageRepositoryService,
+    public helperFunctions: HelperFunctionsService,
+    public electronService: ElectronService
+  ) {
+
+  }
+
+  ngOnInit() {
     this.storage.loadLastSelection().then(result => {
-      if (this.checkEmpty(result)) {
+      if (this.helperFunctions.checkEmpty(result)) {
         this.selectedMagazines = {}
         result.forEach(element => {
           this.selectedMagazines[element.id] = element
         });
+        this.updateSelectedCount()
       }
     })
-  }
-
-  ngOnInit() {
   }
 
   ngOnDestroy() {
@@ -68,7 +80,12 @@ export class SelectionPageComponent implements OnInit, OnDestroy {
   selectMagazine(element: MagazineSearchResult) {
     this.zones.run(() => {
       (this.selectedMagazines[element.id]) ? delete this.selectedMagazines[element.id] : this.selectedMagazines[element.id] = element
+      this.updateSelectedCount()
     })
+  }
+
+  updateSelectedCount() {
+    this.selectedMagazinesCount = Object.keys(this.selectedMagazines).length
   }
 
   done() {
@@ -77,16 +94,18 @@ export class SelectionPageComponent implements OnInit, OnDestroy {
     this.router.navigate(['export'])
   }
 
-  checkEmpty(object: {}): boolean {
-    return Object.keys(object).length > 0
-  }
-
   continueSearch() {
     this.loading = true
     this.yumpuService.continueSearch().subscribe(result => {
       this.loading = false
     }, error => {
       this.loading = false
+    })
+  }
+
+  openMagazine(result: MagazineSearchResult) {
+    this.storage.storeSingleResult(result).then(() => {
+      this.electronService.ipcRenderer.send("test", result.id)
     })
   }
 }

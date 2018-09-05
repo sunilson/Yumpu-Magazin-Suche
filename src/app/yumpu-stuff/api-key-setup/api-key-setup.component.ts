@@ -10,21 +10,30 @@ import { LocalStorageRepositoryService } from '../../storage/local-storage-repos
 export class ApiKeySetupComponent implements OnInit {
 
   key: string = ""
+  canCancel: boolean = false
 
   constructor(
     public dialogRef: MatDialogRef<ApiKeySetupComponent>,
     private localStorage: LocalStorageRepositoryService,
     @Inject(MAT_DIALOG_DATA) public data: any,
-  ) { }
+  ) {
+    this.localStorage.getApiKey().then(key => {
+      if (key.length > 0) this.canCancel = true
+      this.key = key
+    })
+  }
 
   ngOnInit() {
   }
 
+  cancel() {
+    this.dialogRef.close()
+  }
+
   storeKey() {
-    alert(this.key)
     if (this.key) {
       this.localStorage.setApiKey(this.key).then(() => {
-        this.dialogRef.close()
+        this.dialogRef.close(this.key)
       }).catch(error => {
         alert("Error")
       })

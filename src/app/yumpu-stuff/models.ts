@@ -6,9 +6,10 @@ export class Language {
 
 export class SearchOptions {
     constructor(
-        public query: string,
-        public language?: Language,
-        public minViews?: number,
+        public query: string = "",
+        public language: Language = null,
+        public minViews: number = 0,
+        public maxViews: number = 999999999,
         public offset: number = 0,
         public limit: number = 50,
         public startDate: moment.Moment = moment().startOf("year"),
@@ -18,7 +19,12 @@ export class SearchOptions {
 }
 
 export enum SearchOptionsOrdering {
-    VIEWS_DESC = "views_desc", VIEWS_ASC = "views_asc", CREATE_DATE_DESC = "create_date_desc", CREATE_DATE_ASC = "create_date_asc", PAGES_DESC = "pages_desc", PAGES_ASC = "pages_asc"
+    VIEWS_DESC = "views_desc",
+    VIEWS_ASC = "views_asc",
+    CREATE_DATE_DESC = "create_date_desc",
+    CREATE_DATE_ASC = "create_date_asc",
+    PAGES_DESC = "pages_desc",
+    PAGES_ASC = "pages_asc"
 }
 
 export class MagazineSearchResult {
@@ -27,7 +33,20 @@ export class MagazineSearchResult {
         public title: string,
         public url: string,
         public image: string,
-        public tags: string[]
+        public tags: string[],
+        public embed: string
+    ) { }
+
+    get fullscreenUrl(): string {
+        return this.url.replace("view", "fullscreen")
+    }
+}
+
+export class MagazineSearch {
+    constructor(
+        public date: moment.Moment,
+        public options: SearchOptions,
+        public results: MagazineSearchResult[]
     ) { }
 }
 

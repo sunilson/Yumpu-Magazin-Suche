@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormatDatePipe } from './format-date.pipe';
 import { HttpClientModule } from '@angular/common/http';
 import { TranslationService } from './translation.service';
+import { HelperFunctionsService } from './helper-functions.service';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ export class UtilModule {
     return {
       ngModule: UtilModule,
       providers: [
-        TranslationService
+        TranslationService,
+        HelperFunctionsService
       ]
     }
   }

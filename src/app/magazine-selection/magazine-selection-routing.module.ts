@@ -17,6 +17,10 @@ const routes: Routes = [
   {
     path: 'export',
     component: MagazineExportComponent
+  },
+  {
+    path: 'export/archived',
+    component: MagazineExportComponent
   }
 ];
 

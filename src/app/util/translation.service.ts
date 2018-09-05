@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Language } from '../yumpu-stuff/models';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, empty, of } from 'rxjs';
 
 @Injectable()
 export class TranslationService {
@@ -14,6 +14,7 @@ export class TranslationService {
   }
 
   translateString(value: string, to: Language, from?: Language): Observable<string> {
+    if (!value) return of("")
     return this.httpClient.post(`https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&to=${to.short}`, [
       {
         "Text": value

@@ -6,6 +6,10 @@ const routes: Routes = [
     {
         path: '',
         loadChildren: 'app/magazine-selection/magazine-selection.module#MagazineSelectionModule'
+    },
+    {
+        path: 'external',
+        loadChildren: 'app/seperate-windows/seperate-windows.module#SeperateWindowsModule'
     }
 ];
 

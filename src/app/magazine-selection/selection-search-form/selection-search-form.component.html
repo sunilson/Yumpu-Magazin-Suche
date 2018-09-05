@@ -1,32 +1,34 @@
 <div class="content-container center">
-  <div class="form-content" *ngIf="!loading">
-    <h1>Magazine Search</h1>
-    <mat-form-field style="width: 100%">
-      <input [(ngModel)]="searchQuery" matInput placeholder="Suchbegriff" (keyup.enter)="startSearch()">
-      <button *ngIf="!translating" mat-icon-button matSuffix [matMenuTriggerFor]="menu">
-        <mat-icon>g_translate</mat-icon>
+  <mat-card class="form-content center" [ngClass]="{'small': loading}">
+    <mat-card-content *ngIf="!loading">
+      <img src="assets/logo.png" class="yumpu-logo" />
+      <mat-form-field class="full-width">
+        <input [(ngModel)]="currentSearchOptions.query" matInput placeholder="Suchbegriff" (keyup.enter)="startSearch()">
+        <button *ngIf="!translating" mat-icon-button matSuffix [matMenuTriggerFor]="menu">
+          <mat-icon>g_translate</mat-icon>
+        </button>
+        <mat-spinner *ngIf="translating" diameter="20" matSuffix></mat-spinner>
+      </mat-form-field>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item *ngFor="let language of yumpuService.languages" (click)="translate(language)">{{language.name}}</button>
+      </mat-menu>
+      <mat-form-field class="full-width">
+        <mat-select placeholder="Sprache" [(ngModel)]="currentSearchOptions.language">
+          <mat-option *ngFor="let language of yumpuService.languages" [value]="language">{{language.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="startSearch()">
+        Starten
+        <mat-icon style="padding-left: 10px">search</mat-icon>
       </button>
-      <mat-spinner *ngIf="translating" diameter="20" matSuffix></mat-spinner>
-    </mat-form-field>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item *ngFor="let language of yumpuService.languages" (click)="translate(language)">{{language.name}}</button>
-    </mat-menu>
-    <mat-form-field style="width: 100%">
-      <mat-select placeholder="Sprache" [(ngModel)]="selectedLanguage">
-        <mat-option *ngFor="let language of yumpuService.languages" [value]="language">{{language.name}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <button mat-raised-button color="primary" (click)="startSearch()">
-      Starten
-      <mat-icon style="padding-left: 10px">search</mat-icon>
-    </button>
-    <div>
-      <button mat-button>
-        Advanced options
-      </button>
-    </div>
-  </div>
-  <div *ngIf="loading">
-    <mat-spinner></mat-spinner>
-  </div>
+      <div>
+        <button mat-button (click)="advancedSearch()">
+          Erweitert
+        </button>
+      </div>
+    </mat-card-content>
+    <mat-card-content class="loader-card-content" *ngIf="loading">
+      <mat-spinner></mat-spinner>
+    </mat-card-content>
+  </mat-card>
 </div>

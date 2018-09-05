@@ -1,4 +1,4 @@
-import { app, BrowserWindow, screen } from 'electron';
+import { app, BrowserWindow, screen, ipcMain } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 var open = require("open");
@@ -18,7 +18,11 @@ function createWindow() {
     y: 0,
     width: 1000,
     height: 600,
+    minWidth: 700,
+    minHeight: 700,
     frame: false,
+    title: "Yumpu Magazin Suche",
+    icon: path.join(__dirname, 'assets/icons/png/64x64.png')
   });
 
   win.webContents.on('new-window', function (event, url) {
@@ -27,6 +31,8 @@ function createWindow() {
   });
 
   win.setMenu(null)
+  //win.webContents.openDevTools();
+
 
   if (serve) {
     require('electron-reload')(__dirname, {
@@ -41,7 +47,7 @@ function createWindow() {
     }));
   }
 
-  win.webContents.openDevTools();
+  //win.webContents.openDevTools();
 
   // Emitted when the window is closed.
   win.on('closed', () => {
@@ -81,3 +87,19 @@ try {
   // Catch Error
   // throw e;
 }
+
+ipcMain.on("test", (event, arg) => {
+  // Create a browser window
+  var win = new BrowserWindow({
+    width: 1200,
+    height: 600,
+    center: true,
+    resizable: true,
+    frame: true,
+    transparent: false
+  });
+
+  win.setMenu(null)
+  // Load the page + route
+  win.loadURL(`file://${__dirname}/dist/index.html#/external/embed/${arg}`);
+})

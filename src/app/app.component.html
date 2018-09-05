@@ -1,39 +1,49 @@
-<mat-drawer-container style="height: 100%">
+<mat-drawer-container class="full-height-width">
   <mat-drawer #drawer style="width: 300px">
-    <mat-toolbar color="primary" class="toolbar" style="-webkit-app-region: drag">
+    <mat-toolbar color="primary" class="toolbar draggable">
       <mat-toolbar-row>
-        <button mat-icon-button class="toolbar-icon" style="-webkit-app-region: no-drag" (click)="drawer.toggle()">
+        <button mat-icon-button class="toolbar-icon undraggable" (click)="drawer.toggle()">
           <mat-icon>menu</mat-icon>
         </button>
-        <span>Menu</span>
+        <span>Menü</span>
       </mat-toolbar-row>
     </mat-toolbar>
+    <mat-nav-list>
+      <mat-list-item (click)="drawer.toggle(); yumpuService.changeApiKey()">
+        <mat-icon mat-list-icon>vpn_key</mat-icon>
+        <h4 mat-line>Api Key</h4>
+        <p mat-line>Yumpu Api key ändern</p>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <h3 mat-subheader>Gespeicherte Suchen</h3>
+      <mat-list-item *ngFor="let search of searches" (click)="drawer.toggle();openSearch(search)">
+        <h4 mat-line>{{search.options.query}}</h4>
+        <p mat-line> {{search.date}} </p>
+      </mat-list-item>
+    </mat-nav-list>
   </mat-drawer>
-  <mat-toolbar color="primary" class="toolbar" style="-webkit-app-region: drag">
+  <mat-toolbar *ngIf="currentUrl !== 'nothing' && !currentUrl.includes('external')" color="primary" class="toolbar draggable">
     <mat-toolbar-row>
-      <button *ngIf="router.url === '/'" mat-icon-button class="toolbar-icon" style="-webkit-app-region: no-drag"
-        (click)="drawer.toggle()">
+      <button *ngIf="currentUrl === '/'" mat-icon-button class="toolbar-icon undraggable" (click)="drawer.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
-      <button *ngIf="router.url !== '/'" mat-icon-button class="toolbar-icon" style="-webkit-app-region: no-drag"
-        (click)="location.back()">
+      <button *ngIf="currentUrl !== '/'" mat-icon-button class="toolbar-icon undraggable" (click)="location.back()">
         <mat-icon>arrow_back</mat-icon>
       </button>
-      <span *ngIf="router.url == '/'">Yumpu Magazin Suche</span>
-      <span *ngIf="router.url == '/selection'">Magazin Auswahl</span>
-      <span *ngIf="router.url == '/export'">Magazin Export</span>
+      <span *ngIf="currentUrl == '/'">Yumpu Magazin Suche</span>
+      <span *ngIf="currentUrl == '/selection'">Magazin Auswahl</span>
+      <span *ngIf="currentUrl == '/export'">Magazin Export</span>
+      <span *ngIf="currentUrl == '/export/archived'">Archivierte Suche</span>
       <span class="spacer"></span>
-      <button (click)="electronService.remote.BrowserWindow.getFocusedWindow().minimize()" mat-icon-button class="toolbar-icon"
-        style="-webkit-app-region: no-drag">
+      <button (click)="electronService.remote.BrowserWindow.getFocusedWindow().minimize()" mat-icon-button class="toolbar-icon undraggable">
         <mat-icon>minimize</mat-icon>
       </button>
       <button (click)="(!electronService.remote.BrowserWindow.getFocusedWindow().isMaximized()) ? electronService.remote.BrowserWindow.getFocusedWindow().maximize() : electronService.remote.BrowserWindow.getFocusedWindow().unmaximize()"
-        mat-icon-button class="toolbar-icon" style="-webkit-app-region: no-drag">
+        mat-icon-button class="toolbar-icon undraggable">
         <mat-icon *ngIf="electronService.remote.BrowserWindow.getFocusedWindow() && electronService.remote.BrowserWindow.getFocusedWindow().isMaximized()">filter_none</mat-icon>
         <mat-icon *ngIf="electronService.remote.BrowserWindow.getFocusedWindow() && !electronService.remote.BrowserWindow.getFocusedWindow().isMaximized()">crop_square</mat-icon>
       </button>
-      <button (click)="electronService.remote.BrowserWindow.getFocusedWindow().close()" mat-icon-button class="toolbar-icon"
-        style="-webkit-app-region: no-drag">
+      <button (click)="electronService.remote.BrowserWindow.getFocusedWindow().close()" mat-icon-button class="toolbar-icon undraggable">
         <mat-icon>close</mat-icon>
       </button>
     </mat-toolbar-row>

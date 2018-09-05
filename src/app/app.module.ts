@@ -18,13 +18,12 @@ import { ElectronService } from './providers/electron.service';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
-import { MagazineSelectionModule } from './magazine-selection/magazine-selection.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StorageModule } from './storage/storage.module';
 import { YumpuStuffModule } from './yumpu-stuff/yumpu-stuff.module';
 import { Language } from './yumpu-stuff/models';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule, MatButtonModule, MatSidenavModule } from '@angular/material';
+import { MatIconModule, MatButtonModule, MatSidenavModule, MatListModule } from '@angular/material';
 import { ImageSelectDirective } from './util/image-select.directive';
 import { UtilModule } from './util/util.module';
 
@@ -50,6 +49,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatButtonModule,
     MatIconModule,
     MatSidenavModule,
+    MatListModule,
     UtilModule.forRoot(),
     TranslateModule.forRoot({
       loader: {

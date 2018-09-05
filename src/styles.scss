@@ -1,5 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-
 html,
 body {
   margin: 0;
@@ -18,10 +17,16 @@ body {
 }
 
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
 .center {
   display: flex !important;
   justify-content: center;
   align-items: center;
+}
+
+.center-vertical {
+  display: flex;
+  align-items: center
 }
 
 /*
@@ -31,8 +36,8 @@ body {
   border-top-right-radius: 10px;
 }
 */
-
 @import "./variables.scss";
+
 .content-container {
   width: 100%;
   height: $content-height; //border-bottom-left-radius: 10px;
@@ -43,4 +48,46 @@ body {
   right: 0px;
   bottom: 0px;
   overflow-y: auto; //border-bottom-right-radius: 10px;
+}
+
+.unselectable {
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: default;
+}
+
+.draggable {
+  -webkit-app-region: drag
+}
+
+.undraggable {
+  -webkit-app-region: no-drag
+}
+
+.full-height {
+  height: 100%;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.full-height-width {
+  height: 100%;
+  width: 100%;
+}
+
+.no-padding {
+  padding: 0 !important
+}
+
+.no-side-margin {
+  margin-left: 0 !important;
+  margin-right: 0 !important
+}
+
+img {
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-app-region: no-drag;
 }
