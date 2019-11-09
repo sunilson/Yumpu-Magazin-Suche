@@ -4,12 +4,10 @@
   </h1>
   <div class="center top-buttons" *ngIf="!archived">
     <button mat-button (click)="saveSearch()">Suche abspeichern</button>
-    <button mat-button>Liste exportieren</button>
     <button mat-button (click)="router.navigate(['/'])">Neu starten</button>
   </div>
   <div class="center top-buttons" *ngIf="archived">
     <button mat-button (click)="deleteSearch()">Suche löschen</button>
-    <button mat-button>Liste exportieren</button>
   </div>
   <div class="row">
     <div class="col-xs-12 col-md-6" style="padding: 15px">

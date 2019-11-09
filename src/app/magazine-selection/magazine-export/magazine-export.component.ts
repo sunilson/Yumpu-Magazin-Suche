@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { YumpuApiService } from '../../yumpu-stuff/providers/yumpu-api.service';
 import { LocalStorageRepositoryService } from '../../storage/local-storage-repository.service';
 import { Location } from '@angular/common';
@@ -12,7 +12,7 @@ import { ElectronService } from '../../providers/electron.service';
   templateUrl: './magazine-export.component.html',
   styleUrls: ['./magazine-export.component.scss']
 })
-export class MagazineExportComponent implements OnInit {
+export class MagazineExportComponent implements OnInit, OnDestroy {
 
   currentSelection: MagazineSearchResult[] = []
   currentSearch: MagazineSearch
@@ -58,4 +58,7 @@ export class MagazineExportComponent implements OnInit {
   ngOnInit() {
   }
 
+  ngOnDestroy() {
+    this.localStorage.storeSelection([])
+  }
 }
